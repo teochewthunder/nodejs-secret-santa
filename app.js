@@ -9,6 +9,10 @@ app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
 app.set("port", process.env.PORT || 3000);
 
+app.get("/", (req, res)=> {
+	res.render("index");
+});
+
 //app.get("/thankyou", (req, res)=> {
 //	res.render("thankyou");
 //});

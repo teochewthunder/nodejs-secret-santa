@@ -39,23 +39,32 @@
 				float: left;
 			}
 
-			input, select, textarea {
+			input {
 				border-radius: 5px;
 				width: 15em;
 				height: 1.5em;
 				border: 2px solid rgb(100, 100, 100);
 			}
 
-			textarea {
-				height: 5em;
-			}
-
 			button {
 				display: inline-block;
 				width: 3em;
 				float: right;
+				background-color: rgb(200, 150, 0);
+				color: rgb(255, 255, 255);
+			}
+
+			button:hover {
+				font-weight: bold;
 			}
 		</style>
+
+		<script>
+			function gotoSantas() {
+				var txtSantas = document.getElementById("txtSantas");	
+				window.location = "/" + parseInt(txtSantas.value);
+			}
+		</script>
 	</head>
 	<body>
 		{{{ body }}}
