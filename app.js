@@ -9,15 +9,21 @@ app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
 app.set("port", process.env.PORT || 3000);
 
-app.get("/", (req, res)=> {
+app.get("/", (req, res) => {
 	res.render("index");
+});
+
+app.get("/santa/:intSantas", (req, res) => {
+	const no_of_santas = parseInt(req.params.intSantas);
+	if (no_of_santas < 3) no_of_santas = 3;
+	res.render("santa", { santas: [...Array(no_of_santas).keys()]);
 });
 
 //app.get("/thankyou", (req, res)=> {
 //	res.render("thankyou");
 //});
 
-app.post("/process", (req, res)=> {
+app.post("/process", (req, res) => {
 	var nodemailer = require("nodemailer");
 
 	var transport = nodemailer.createTransport({
