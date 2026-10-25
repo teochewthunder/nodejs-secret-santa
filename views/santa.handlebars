@@ -1,15 +1,20 @@
 <div id="santaContainer">
-	{{#each santas}}
-	<div id="santa{{this}}" class="santa">
-		<label>
-			<span class="labelText">NAME</span>
-			<input id="txtName{{this}}" type="text" placeholder="John"  />
-		</label>
+	<form id="frmAssign" action="/process" method="POST">
+		{{#each santas}}
+		<div id="santa{{this}}" class="santa">
+			<label>
+				<span class="labelText">NAME</span>
+				<input id="txtName{{this}}" type="text" placeholder="John"  />
+			</label>
 
-		<label>
-			<span class="labelText">EMAIL</span>
-			<input id="txtEmail{{this}}" type="email" placeholder="john12345@gmail.com"  />
-		</label>
-	</div>
-	{{/each}}
+			<label>
+				<span class="labelText">EMAIL</span>
+				<input id="txtEmail{{this}}" type="email" placeholder="john12345@gmail.com"  />
+			</label>
+		</div>
+		{{/each}}
+	</form>
 </div>
+
+<button onclick="gotoStart()">Back</button>
+<button onclick="gotoAssign()">Assign</button>

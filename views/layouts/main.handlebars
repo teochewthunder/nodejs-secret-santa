@@ -9,26 +9,24 @@
 			body {
 				font-family: verdana, sans-serif;
 				font-size: 14px;
-				background-color: rgba(255, 200, 0, 0.5);
-				color: rgba(255, 100, 0, 0.8);
+				background-color: rgba(0, 200, 0, 0.5);
 			}
 
-			h1, p {
+			h1 {
 				text-align: center;
 			}
 
-			form {
-				width: 22em;
-				height: 12em;
+			#santaContainer {
+				width: 700px;
 				padding: 1em;
 				display: block;
 				margin: 0 auto 0 auto;
-				background-color: rgba(255, 200, 0, 0.5);
 			}
 
 			label {
 				display: inline-block;
-				margin-top: 0.5em;
+				margin-top: 1em;
+				margin-left: 3em;
 				font-weight: bold;
 			}
 
@@ -47,11 +45,13 @@
 			}
 
 			button {
+				border: 2px solid rgb(200, 0, 0);
+				border-radius: 5px;
 				display: inline-block;
-				width: 3em;
-				float: right;
-				background-color: rgb(200, 150, 0);
-				color: rgb(255, 255, 255);
+				width: 8em;
+				height: 2em;
+				background-color: rgb(0, 200, 0);
+				color: rgb(200, 0, 0);
 			}
 
 			button:hover {
@@ -60,9 +60,17 @@
 		</style>
 
 		<script>
+			function gotoStart() {
+				window.location = "/";
+			}
+
 			function gotoSantas() {
 				var txtSantas = document.getElementById("txtSantas");	
 				window.location = "/santa/" + parseInt(txtSantas.value);
+			}
+
+			function gotoAssign() {
+				//submit form
 			}
 		</script>
 	</head>
