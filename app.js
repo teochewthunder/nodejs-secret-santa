@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 
 app.get("/santa/:intSantas", (req, res) => {
 	const no_of_santas = parseInt(req.params.intSantas);
+
 	if (no_of_santas < 3) no_of_santas = 3;
 	res.render("santa", { santas: [...Array(no_of_santas).keys()] });
 });
