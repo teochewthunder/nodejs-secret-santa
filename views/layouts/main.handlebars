@@ -66,10 +66,8 @@
 
 			function gotoSantas() {
 				var txtSantas = document.getElementById("txtSantas");	
-				var intSantas = 0;
 
-				if (!isNaN(txtSantas.value) && txtSantas != "") intSantas = parseInt(txtSantas.value);
-				window.location = "/santa/" + intSantas;
+				window.location = "/santa/" + txtSantas.value;
 			}
 
 			function gotoAssign() {
