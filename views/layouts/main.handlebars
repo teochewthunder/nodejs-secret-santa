@@ -58,6 +58,10 @@
 			button:hover {
 				font-weight: bold;
 			}
+
+			.error {
+				border: 2px solid rgb(255, 0, 0);
+			}
 		</style>
 
 		<script>
@@ -66,13 +70,28 @@
 			}
 
 			function gotoSantas() {
-				var txtSantas = document.getElementById("txtSantas");	
+				var txtSantas = document.getElementById("txtSantas").value;	
 
-				window.location = "/santa/" + txtSantas.value;
+				window.location = "/santa/" + txtSantas;
 			}
 
 			function gotoAssign() {
+				//validate
+				var hidSantas = document.getElementById("hidSantas").value;
+
+				for (let i = 0; i < hidSantas; i++) {
+					var txtName = document.getElementById("txtName" + i);
+					if (txtName.value.trim().length === 0) {
+						txtName.className = "error";
+					} else {
+						txtName.className = "";
+					}
+				}
+
 				//submit form
+				if (document.getElementByClassName("error").length === 0) {
+
+				}
 			}
 		</script>
 	</head>

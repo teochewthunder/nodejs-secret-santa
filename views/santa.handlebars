@@ -2,17 +2,19 @@
 	<form id="frmAssign" action="/process" method="POST">
 		{{#each santas}}
 		<div id="santa{{this}}" class="santa">
-			<label>
+			<label for="txtName{{this}}">
 				<span class="labelText">NAME</span>
-				<input id="txtName{{this}}" type="text" placeholder="John"  />
+				<input id="txtName{{this}}" name="txtName{{this}}" type="text" placeholder="John"  />
 			</label>
 
-			<label>
+			<label for="txtEmail{{this}}">
 				<span class="labelText">EMAIL</span>
-				<input id="txtEmail{{this}}" type="email" placeholder="john12345@gmail.com"  />
+				<input id="txtEmail{{this}}" name="txtName{{this}}" type="email" placeholder="john12345@gmail.com"  />
 			</label>
 		</div>
 		{{/each}}
+
+		<input type="text" id="hidSantas" name="hidSantas" value="{{santas.length}}" />
 	</form>
 
 	<hr />
