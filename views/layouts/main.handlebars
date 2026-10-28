@@ -86,6 +86,14 @@
 					} else {
 						txtName.className = "";
 					}
+
+					var txtEmail = document.getElementById("txtEmail" + i);
+					var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+					if (txtEmail.value.trim().length === 0 || !emailRegex.test(txtEmail.value)) {
+						txtEmail.className = "error";
+					} else {
+						txtEmail.className = "";
+					}
 				}
 
 				//submit form
