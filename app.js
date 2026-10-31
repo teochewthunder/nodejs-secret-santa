@@ -17,7 +17,13 @@ app.get("/santa/:intSantas", (req, res) => {
 	let no_of_santas = parseInt(req.params.intSantas);
 
 	if (no_of_santas < 3) no_of_santas = 3;
-	res.render("santa", { santas: [...Array(no_of_santas).keys()] });
+	res.render("santa", { 
+		santas: [...Array(no_of_santas).keys()]
+		.map(i => ({ 
+			id: i, 
+			value: (i === no_of_santas - 1 ? 0 : i + 1)
+		}))
+	});
 });
 
 app.post("/process", (req, res) => {
