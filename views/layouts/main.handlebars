@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Xmas Mailer</title>
+		<title>Secret Santa</title>
 
 		<style>
 			body {
@@ -77,10 +77,13 @@
 
 			function gotoAssign() {
 				//validate
-				var hidSantas = document.getElementById("hidSantas").value;
+				let hidSantas = document.getElementById("hidSantas").value;
+				let emails = [];
 
 				for (let i = 0; i < hidSantas; i++) {
 					var txtName = document.getElementById("txtName" + i);
+					txtName.className = "";
+
 					if (txtName.value.trim().length === 0) {
 						txtName.className = "error";
 					} else {
@@ -88,17 +91,25 @@
 					}
 
 					var txtEmail = document.getElementById("txtEmail" + i);
+					txtEmail.className = "";
+
 					var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 					if (txtEmail.value.trim().length === 0 || !emailRegex.test(txtEmail.value)) {
 						txtEmail.className = "error";
+					} 
+
+					var indexOf = emails.indexOf(txtEmail.value.trim());
+					if (indexOf === -1) {
+						emails.push(txtEmail.value.trim());
 					} else {
-						txtEmail.className = "";
+						txtEmail.className = "error";
+						document.getElementById("txtEmail" + indexOf).className = "error";
 					}
 				}
 
 				//submit form
 				if (document.getElementByClassName("error").length === 0) {
-
+					document.getElementById("frmAssign").submit();
 				}
 			}
 		</script>

@@ -20,11 +20,29 @@ app.get("/santa/:intSantas", (req, res) => {
 	res.render("santa", { santas: [...Array(no_of_santas).keys()] });
 });
 
-//app.get("/thankyou", (req, res)=> {
-//	res.render("thankyou");
-//});
-
 app.post("/process", (req, res) => {
+	let no_of_santas = req.body.hidSantas;
+	let assignment = [...Array(no_of_santas).keys()];
+	let santas = [];
+
+	for (let i = 0; i < no_of_santas; i++) {
+		var index = Math.floor(Math.random * no_of_santas);
+		var assigned = assignment[index];
+		assignment.splice(index, 1);
+
+		santas.push(
+			{
+				name: req.body["txtName" + i],
+				email: req.body["txtEmail" + i],
+				assigned: assigned
+			}
+		);
+	}
+
+	res.render("assigned", { santas: santas });
+});
+
+app.post("/process1", (req, res) => {
 	var nodemailer = require("nodemailer");
 
 	var transport = nodemailer.createTransport({

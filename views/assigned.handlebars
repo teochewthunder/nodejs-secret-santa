@@ -1,0 +1,22 @@
+<div id="santaContainer">
+	<form id="frmEmail" action="/process" method="POST">
+		{{#each santas}}
+		<div id="santa{{this}}" class="santa">
+			<label for="txtName{{this}}">
+				<span class="labelText">NAME</span>
+
+			</label>
+
+			<label for="txtEmail{{this}}">
+				<span class="labelText">EMAIL</span>
+			</label>
+		</div>
+		{{/each}}
+	</form>
+
+	<hr />
+
+	<button onclick="gotoStart()">Back</button>
+	<button onclick="gotoAssign()">Assign</button>	
+</div>
+
