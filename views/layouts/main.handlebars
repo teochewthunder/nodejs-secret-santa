@@ -75,7 +75,7 @@
 				window.location = "/santa/" + txtSantas;
 			}
 
-			function gotoAssign() {
+			function gotoEmail() {
 				//validate
 				let hidSantas = document.getElementById("hidSantas").value;
 				let emails = [];
@@ -110,6 +110,24 @@
 				//submit form
 				if (document.getElementByClassName("error").length === 0) {
 					document.getElementById("frmAssign").submit();
+				}
+			}
+
+			function populate(id) {
+				document.getElementById("labelAssigned" + document.getElementById("hidAssigned" + id).value).innerHTML = document.getElementById("txtEmail" + id).value;
+			}
+
+			function reassign() {
+				let hidSantas = document.getElementById("hidSantas").value;
+				let assignment = [...Array(hidSantas).keys()];
+
+				for (let i = 0; i < hidSantas; i++) {
+					var index = Math.floor(Math.random * hidSantas);
+					var assigned = assignment[index];
+					assignment.splice(index, 1);
+
+					document.getElementById("hidAssigned" + id).value = assigned;
+					populate(i);
 				}
 			}
 		</script>
