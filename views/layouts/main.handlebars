@@ -119,14 +119,14 @@
 
 			function reassign() {
 				let hidSantas = document.getElementById("hidSantas").value;
-				let assignment = [...Array(hidSantas).keys()];
-
+				let assignment = [...Array(parseInt(hidSantas)).keys()];
 				for (let i = 0; i < hidSantas; i++) {
-					var index = Math.floor(Math.random * hidSantas);
+					var index = Math.floor(Math.random() * assignment.length);
 					var assigned = assignment[index];
 					assignment.splice(index, 1);
+console.log(i,index,assignment,assigned)
 
-					document.getElementById("hidAssigned" + id).value = assigned;
+					document.getElementById("hidAssigned" + i).value = assigned;
 					populate(i);
 				}
 			}
