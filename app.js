@@ -26,50 +26,52 @@ app.get("/santa/:intSantas", (req, res) => {
 	});
 });
 
-app.post("/process", (req, res) => {
-	let no_of_santas = parseInt(req.params.hidSantas);
+app.post("/process", async (req, res) => {
+	let no_of_santas = parseInt(req.body.hidSantas);
 
 	var nodemailer = require("nodemailer");
+	var transport = nodemailer.createTransport({
+		service: "Gmail",
+		host: "smtp.gmail.com",
+		secure: true,
+		port: 465,
+		auth: {
+			user: auth.mail.user,
+			pass: auth.mail.password
+		}
+	});
 
-	for(let i = 0; i < no_of_santas; i++) {
-		var santaFor = req.body["hidAssigned" + i];
-		var santaForName = req.body["txtName" + santaFor];
-		var santaForEmail = req.body["txtEmail" + santaFor];
+	try {
+		for(let i = 0; i < no_of_santas; i++) {
+			var santaFor = req.body["hidAssigned" + i];
+			var santaForName = req.body["txtName" + santaFor];
+			var santaForEmail = req.body["txtEmail" + santaFor];
 
-		var transport = nodemailer.createTransport({
-			service: "Gmail",
-			host: "smtp.gmail.com",
-			secure: true,
-			port: 465,
-			auth: {
-				user: auth.mail.user,
-				pass: auth.mail.password
-			}
-		});
-
-		res.render("emailtemplate", {
-			layout: null,
-			message: `You are the Secret Santa for ${santaForName} ${santaForEmail}.`
-		}, (error, html) => {
-			if (error) {
-				console.log(error);
-				res.render("500", { errorMessage: error.code });
-			} else {
-				var options = {
-					from: "teochewthunder@gmail.com",
-					to: req.body["txtEmail" + i],
-					subject: "You are a Secret Santa",
-					html: html
-				};
-
-				transport.sendMail(options, (error) => { 
+			const html = await new Promise((resolve, reject) => {
+				res.render("emailtemplate", {
+					layout: null,
+					message: `You are the Secret Santa for ${santaForName} ${santaForEmail}.`
+				}, (error, html) => {
 					if (error) {
-						console.log(error);
-						res.render("500", { errorMessage: error.code });
-					} 
+						reject(error);
+					} else {
+						resolve(html);
+					}
 				});	
-			}
-		});
+			});
+
+			var options = {
+				from: "teochewthunder@gmail.com",
+				to: req.body["txtEmail" + i],
+				subject: "You are a Secret Santa",
+				html: html
+			};
+
+			await transport.sendMail(options);		
+		}
+	} catch(error) {
+		console.log(error);
+		res.render("500", { errorMessage: error.code });		
 	}
 });
 
