@@ -66,9 +66,7 @@ app.post("/process", (req, res) => {
 					if (error) {
 						console.log(error);
 						res.render("500", { errorMessage: error.code });
-					} else {
-						res.redirect(303, "/santa");
-					}
+					} 
 				});	
 			}
 		});
