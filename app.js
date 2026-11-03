@@ -2,6 +2,7 @@ var auth = require("./auth.js");
 var express = require("express");
 
 var app = express();
+app.use(express.urlencoded({extended:true}));
 
 var handlebars = require("express-handlebars").create({defaultLayout:"main"});
 app.engine("handlebars", handlebars.engine);
