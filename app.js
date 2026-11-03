@@ -27,52 +27,65 @@ app.get("/santa/:intSantas", (req, res) => {
 });
 
 app.post("/process", async (req, res) => {
-	let no_of_santas = parseInt(req.body.hidSantas);
 
-	var nodemailer = require("nodemailer");
-	var transport = nodemailer.createTransport({
-		service: "Gmail",
-		host: "smtp.gmail.com",
-		secure: true,
-		port: 465,
-		auth: {
-			user: auth.mail.user,
-			pass: auth.mail.password
-		}
-	});
+    try {
+        let no_of_santas = parseInt(req.body.hidSantas, 10);
 
-	try {
-		for(let i = 0; i < no_of_santas; i++) {
-			var santaFor = req.body["hidAssigned" + i];
-			var santaForName = req.body["txtName" + santaFor];
-			var santaForEmail = req.body["txtEmail" + santaFor];
+        if (!Number.isInteger(no_of_santas) || no_of_santas < 1) {
+            throw new Error("Invalid number of Santas: " + req.body.hidSantas);
+        }
 
-			const html = await new Promise((resolve, reject) => {
-				res.render("emailtemplate", {
-					layout: null,
-					message: `You are the Secret Santa for ${santaForName} ${santaForEmail}.`
-				}, (error, html) => {
-					if (error) {
-						reject(error);
-					} else {
-						resolve(html);
-					}
-				});	
-			});
+        var nodemailer = require("nodemailer");
 
-			var options = {
-				from: "teochewthunder@gmail.com",
-				to: req.body["txtEmail" + i],
-				subject: "You are a Secret Santa",
-				html: html
-			};
+        var transport = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            secure: true,
+            port: 465,
+            auth: {
+                user: auth.mail.user,
+                pass: auth.mail.password
+            }
+        });
 
-			await transport.sendMail(options);		
-		}
-	} catch(error) {
-		console.log(error);
-		res.render("500", { errorMessage: error.code });		
-	}
+        for (let i = 0; i < no_of_santas; i++) {
+
+            var santaFor = req.body["hidAssigned" + i];
+            var santaForName = req.body["txtName" + santaFor];
+            var santaForEmail = req.body["txtEmail" + santaFor];
+
+            console.log("Processing:", i, santaFor, santaForName, santaForEmail);
+
+            const html = await new Promise((resolve, reject) => {
+                res.app.render("emailtemplate", {
+                    layout: null,
+                    message: `You are the Secret Santa for ${santaForName} ${santaForEmail}.`
+                }, (error, html) => {
+                    if (error) reject(error);
+                    else resolve(html);
+                });
+            });
+
+            await transport.sendMail({
+                from: "teochewthunder@gmail.com",
+                to: req.body["txtEmail" + i],
+                subject: "You are a Secret Santa",
+                html: html
+            });
+        }
+
+        res.send("All Secret Santa emails sent!");
+
+    } catch(error) {
+
+        console.error("SECRET SANTA ERROR:", error);
+
+        if (!res.headersSent) {
+            res.status(500).render("500", {
+                errorMessage: error.message
+            });
+        }
+    }
 });
 
 app.use((req, res, next)=> {
