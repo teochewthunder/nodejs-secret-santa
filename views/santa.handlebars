@@ -1,8 +1,29 @@
 <div id="middleContainer">
-	Al emails sent!
+	<form id="frmEmail" action="/process" method="POST">
+		{{#each santas}}
+		<div id="santa{{id}}" class="santa">
+			<label for="txtName{{id}}">
+				<span class="labelText">NAME</span>
+				<input id="txtName{{id}}" name="txtName{{id}}" type="text" placeholder="John"  />
+			</label>
 
-	<hr />
+			&nbsp;&nbsp;&nbsp;&nbsp;
+
+			<label for="txtEmail{{id}}">
+				<span class="labelText">EMAIL</span>
+				<input id="txtEmail{{id}}" name="txtEmail{{id}}" type="email" placeholder="john12345@gmail.com"  oninput="populate({{id}})" />
+			</label>
+
+			<p>Santa for: <span id="labelAssigned{{id}}"></span></p>
+			<input type="hidden" id="hidAssigned{{id}}" name="hidAssigned{{id}}" value="{{value}}" />
+		</div>
+		{{/each}}
+
+		<input type="hidden" id="hidSantas" name="hidSantas" value="{{santas.length}}" />
+	</form>
 
 	<button onclick="gotoStart()">Back</button>
+	<button onclick="reassign()">Reassign</button>	
+	<button onclick="gotoEmail()">Email</button>
 </div>
 
