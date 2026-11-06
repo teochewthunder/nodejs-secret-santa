@@ -28,7 +28,6 @@ app.get("/santa/:intSantas", (req, res) => {
 });
 
 app.post("/process", async (req, res) => {
-
     try {
         let no_of_santas = parseInt(req.body.hidSantas, 10);
 
@@ -48,14 +47,11 @@ app.post("/process", async (req, res) => {
                 pass: auth.mail.password
             }
         });
-console.table(req.body);
-        for (let i = 0; i < no_of_santas; i++) {
 
+        for (let i = 0; i < no_of_santas; i++) {
             var santaFor = req.body["hidAssigned" + i];
             var santaForName = req.body["txtName" + santaFor];
             var santaForEmail = req.body["txtEmail" + santaFor];
-
-            console.log("Processing:", i, santaFor, santaForName, santaForEmail);
 
             const html = await new Promise((resolve, reject) => {
                 res.app.render("emailtemplate", {
@@ -75,14 +71,10 @@ console.table(req.body);
             });
         }
 
-        res.send("All Secret Santa emails sent!");
-
+	    res.render("success");
     } catch(error) {
-
-        console.error("SECRET SANTA ERROR:", error);
-
         if (!res.headersSent) {
-            res.status(500).render("500", {
+            res.render("500", {
                 errorMessage: error.message
             });
         }
