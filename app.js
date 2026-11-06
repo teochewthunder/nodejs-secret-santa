@@ -48,7 +48,7 @@ app.post("/process", async (req, res) => {
                 pass: auth.mail.password
             }
         });
-
+console.table(req.body);
         for (let i = 0; i < no_of_santas; i++) {
 
             var santaFor = req.body["hidAssigned" + i];
