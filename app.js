@@ -21,7 +21,8 @@ app.get("/santa/:intSantas", (req, res) => {
 	res.render("santa", { 
 		santas: [...Array(no_of_santas).keys()]
 		.map(i => ({ 
-			id: i, 
+			id: i,
+			sno: i + 1, 
 			value: (i === no_of_santas - 1 ? 0 : i + 1)
 		}))
 	});

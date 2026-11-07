@@ -3,7 +3,7 @@
 		{{#each santas}}
 		<div id="santa{{id}}" class="santa">
 			<label for="txtName{{id}}">
-				<span class="labelText">NAME</span>
+				<span class="labelText">{{sno}}) NAME</span>
 				<input id="txtName{{id}}" name="txtName{{id}}" type="text" placeholder="John"  />
 			</label>
 
@@ -11,7 +11,7 @@
 
 			<label for="txtEmail{{id}}">
 				<span class="labelText">EMAIL</span>
-				<input id="txtEmail{{id}}" name="txtEmail1{{id}}" type="email" placeholder="john12345@gmail.com"  oninput="populate({{id}})" />
+				<input id="txtEmail{{id}}" name="txtEmail{{id}}" type="email" placeholder="john12345@gmail.com"  oninput="populate({{id}})" />
 			</label>
 
 			<p>Santa for: <span id="labelAssigned{{id}}"></span></p>
