@@ -3,3 +3,16 @@
 npm install --save express
 npm install --save express-handlebars
 npm install --save nodemailer
+
+## Routes
+GET: /
+
+GET: /santas/
+
+POST: /emails/
+
+## Client-side functions
+-
+-
+-
+-
